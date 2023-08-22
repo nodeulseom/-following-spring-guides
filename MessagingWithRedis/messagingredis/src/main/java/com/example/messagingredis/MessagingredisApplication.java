@@ -1,6 +1,7 @@
 package com.example.messagingredis;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -11,9 +12,10 @@ import org.springframework.data.redis.listener.PatternTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 
-@Slf4j
 @SpringBootApplication
 public class MessagingredisApplication {
+
+	private static final Logger log = LoggerFactory.getLogger(MessagingredisApplication.class);
 
 	@Bean
 	RedisMessageListenerContainer container(RedisConnectionFactory connectionFactory,
@@ -25,7 +27,7 @@ public class MessagingredisApplication {
 		return container;
 	}
 
-	@Bean
+	@Bean // Receiver는 POJO라서 MessageListener를 구현한 MessageListenerAdapter로 래핑해줘야 한다.
 	MessageListenerAdapter listenerAdapter(Receiver receiver) {
 		return new MessageListenerAdapter(receiver, "receiveMessage");
 	}
