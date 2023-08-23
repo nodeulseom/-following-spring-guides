@@ -1,12 +1,18 @@
 package com.example.buildingrestfulwebservice;
 
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
 public class QuoteResource {
 
-    private Quote value;
+    @JsonProperty
     private String type;
+    @JsonProperty
+    private Quote value;
+
+    public QuoteResource(String type, Quote value) {
+        this.type = type;
+        this.value = value;
+    }
 }

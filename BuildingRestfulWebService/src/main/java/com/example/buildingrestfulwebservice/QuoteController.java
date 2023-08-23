@@ -23,18 +23,18 @@ public class QuoteController {
     @GetMapping("/api")
     public List<QuoteResource> getAll() {
         return repository.findAll().stream()
-                .map(quote -> new QuoteResource(quote, "succecss"))
+                .map(quote -> new QuoteResource("succecss", quote))
                 .collect(Collectors.toList());
     }
 
     @GetMapping("/api/{id}")
     public QuoteResource getOne(@PathVariable Long id) {
         return repository.findById(id)
-                .map(quote -> new QuoteResource(quote, "success"))
-                .orElse(new QuoteResource(NONE, "Quote " + id + " dose not exist"));
+                .map(quote -> new QuoteResource("success", quote))
+                .orElse(new QuoteResource("Quote " + id + " dose not exist", NONE));
     }
 
-    @GetMapping("/api/random")
+    @GetMapping(value = "/api/random")
     public QuoteResource getRandomOne() {
         return getOne(nextLong(1, repository.count() +1));
     }
