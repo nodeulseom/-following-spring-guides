@@ -32,7 +32,7 @@ class CustomerHttpController {
     private final CustomerRepository customerRepository;
     private final ObservationRegistry registry;
 
-    public CustomerHttpController(CustomerRepository customerRepository, ObservationRegistry registry) {
+    CustomerHttpController(CustomerRepository customerRepository, ObservationRegistry registry) {
         this.customerRepository = customerRepository;
         this.registry = registry;
     }
